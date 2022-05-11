@@ -82,8 +82,39 @@
 			</plugin>
 
 			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>unwovenClassesFolder</id>
+						<phase>generate-resources</phase>
+						<configuration>
+							<tasks>
+								<delete dir="${project.build.directory}/unwoven-classes"/>
+								<mkdir dir="${project.build.directory}/unwoven-classes"/>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<configuration>
+							<compilerArgs>
+								<arg>-d</arg>
+								<arg>${project.build.directory}/unwoven-classes</arg>
+							</compilerArgs>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
@@ -96,6 +127,10 @@
 					<verbose>false</verbose>
 					<showWeaveInfo>false</showWeaveInfo>
 					<forceAjcCompile>true</forceAjcCompile>
+					<sources />
+					<weaveDirectories>
+						<weaveDirectory>${project.build.directory}/unwoven-classes</weaveDirectory>
+					</weaveDirectories>
 					<aspectLibraries>
 						<aspectLibrary>
 							<groupId>org.springframework</groupId>
@@ -105,28 +140,10 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>weave-classes</id>
 						<phase>process-classes</phase>
 						<goals>
 							<goal>compile</goal>
 						</goals>
-						<configuration>
-							<weaveDirectories>
-								<weaveDirectory>${project.build.outputDirectory}</weaveDirectory>
-							</weaveDirectories>
-						</configuration>
-					</execution>
-					<execution>
-						<id>weave-test-classes</id>
-						<phase>process-test-classes</phase>
-						<goals>
-							<goal>test-compile</goal>
-						</goals>
-						<configuration>
-							<weaveDirectories>
-								<weaveDirectory>${project.build.testOutputDirectory}</weaveDirectory>
-							</weaveDirectories>
-						</configuration>
 					</execution>
 				</executions>
 				<dependencies>
@@ -141,6 +158,11 @@
 						<version>3.4.1</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
 			</plugin>
 		</plugins>
 	</build>
