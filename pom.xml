@@ -62,7 +62,6 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			<version>1.9.9</version>
 		</dependency>
 	</dependencies>
 
@@ -84,16 +83,15 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
 				<executions>
 					<execution>
 						<id>unwovenClassesFolder</id>
 						<phase>generate-resources</phase>
 						<configuration>
-							<tasks>
+							<target>
 								<delete dir="${project.build.directory}/unwoven-classes"/>
 								<mkdir dir="${project.build.directory}/unwoven-classes"/>
-							</tasks>
+							</target>
 						</configuration>
 						<goals>
 							<goal>run</goal>
@@ -120,7 +118,6 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.14.0</version>
 				<configuration>
 					<complianceLevel>${java.version}</complianceLevel>
 					<Xlint>ignore</Xlint>
@@ -146,23 +143,10 @@
 						</goals>
 					</execution>
 				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjtools</artifactId>
-						<version>1.9.9</version>
-					</dependency>
-					<dependency>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-utils</artifactId>
-						<version>3.4.1</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
 			</plugin>
 		</plugins>
 	</build>
