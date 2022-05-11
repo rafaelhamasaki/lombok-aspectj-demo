@@ -96,12 +96,6 @@
 					<verbose>false</verbose>
 					<showWeaveInfo>false</showWeaveInfo>
 					<forceAjcCompile>true</forceAjcCompile>
-					<weaveDependencies>
-						<weaveDependency>
-							<groupId>org.springframework</groupId>
-							<artifactId>spring-aspects</artifactId>
-						</weaveDependency>
-					</weaveDependencies>
 					<aspectLibraries>
 						<aspectLibrary>
 							<groupId>org.springframework</groupId>
